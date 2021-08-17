@@ -1,13 +1,22 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import types from "../../types";
 import "./styles.scss";
 
-function MiningProcess({ currentPlan, dispatchMiningEntry }) {
+function MiningProcess({ plans, currentPlan, dispatchMiningEntry }) {
   const [ submit, setSubmit ] = useState(true);
   const [ amount, setAmount ] = useState();
   const [ lastEntry, setLastEntry ] = useState(false);
+  const history = useHistory();
+
+
+  useEffect(()=>{
+    if (plans.length == 0){
+      history.push('/results');
+    }
+  })
 
   const handleChange = (e) => {
     if (e.target.value){
@@ -30,6 +39,7 @@ function MiningProcess({ currentPlan, dispatchMiningEntry }) {
   const addMiningEntry = (e) =>{
     dispatchMiningEntry(amount, lastEntry)
     setLastEntry(false)
+    console.log(plans.length)
     return;
   }
 
@@ -47,7 +57,7 @@ function MiningProcess({ currentPlan, dispatchMiningEntry }) {
 }
 
 const mapStateProps = ( state ) => {
-  return { currentPlan: state.plans[0]}
+  return { plans:state.plans, currentPlan: state.plans[0]}
 }
 
 const mapDispatchProps = (dispatch) => {
