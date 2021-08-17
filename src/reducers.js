@@ -11,19 +11,19 @@ const reducer = (state= initialState, action) =>{
         case types.AddMiningPlan:
             return {...state, plans:state.plans.push(action.payload)}
         case types.AddMiningEntry:
-            let newEntries = state.entries[state.entries.length-1].push(action.payload.amount);
+            state.entries[state.entries.length-1].push(action.payload.amount);
             if (action.payload.lastBlock){
-                let newFinished = state.finished.push(state.plans[0])
+                state.finished.push(state.plans[0])
                 let newPlans = state.plans.slice(1);
-                if (state.plans.length !== 0) newEntries.push([])
-                return {
-                    ...state,
-                    plans:newPlans,
-                    finished:newFinished,
-                    entries:newEntries
-                }
+                if (state.plans.length !== 0) state.entries.push([])
+                    return {
+                        ...state,
+                        plans:newPlans,
+                        finished:state.finished,
+                        entries:state.entries
+                    }
             }
-            return {...state, entries:newEntries}
+            return {...state, entries:state.entries}
         default:
             return state;
     }
