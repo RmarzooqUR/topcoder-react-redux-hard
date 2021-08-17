@@ -51,7 +51,7 @@ function MiningProcess({ plans, currentPlan, dispatchMiningEntry }) {
       <label htmlFor="lastBlock">Last Block</label>
       <input type="checkbox" name="lastBlock" id="lastBlock" onChange={handleLastEntry} checked={lastEntry} />
       <button disabled={submit} id="btnAddEntry" onClick={addMiningEntry}>Add Entry</button>
-      <Link to='/results'><button>Check Results</button></Link>
+      <Link to='/results'><button id='btnCheckResults'>Check Results</button></Link>
     </div>
   );
 }
