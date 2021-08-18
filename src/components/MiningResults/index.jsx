@@ -17,21 +17,17 @@ const MiningResults = ({ state }) => {
                 </tr>
             </thead>
             <tbody>
-                {state.plans.concat(state.finished).map((item, index) =>{
-                    return (
-                        <tr>
-                            <td>{item}</td>
-                            <td>{ state.entries[index]
-                                ? state.entries[index].reduce((total, amount)=>total+amount, 0)
-                                :0}
-                            </td>
-                            <td>{state.entries[index]
-                                ?state.entries[index].length
-                                :0}
-                            </td>
-                        </tr>
-                    )
-                })}
+                {state.entries.map((item, index) =>{
+                    if (item.length)
+                        return (
+                            <tr key={index}>
+                                <td>{state.finished.concat(state.plans)[index]}</td>
+                                <td>{ item.reduce((total, amount)=>total+amount, 0)}</td>
+                                <td>{item.length}</td>
+                            </tr>
+                        )
+                    }
+                )}
             </tbody>
         </table>
         </>

@@ -1,7 +1,7 @@
 import types from './types'
 
 const initialState ={
-    plans: ['ore1','ore2','ore3','ore4','ore5'],
+    plans: ['ore1','ore2'],
     finished:[],
     entries: [[]]
 }
@@ -15,13 +15,13 @@ const reducer = (state= initialState, action) =>{
             if (action.payload.lastBlock){
                 state.finished.push(state.plans[0])
                 let newPlans = state.plans.slice(1);
-                if (state.plans.length !== 0) state.entries.push([])
-                    return {
-                        ...state,
-                        plans:newPlans,
-                        finished:state.finished,
-                        entries:state.entries
-                    }
+                if (newPlans.length !== 0) state.entries.push([])
+                return {
+                    ...state,
+                    plans:newPlans,
+                    finished:state.finished,
+                    entries:state.entries
+                }
             }
             return {...state, entries:state.entries}
         default:

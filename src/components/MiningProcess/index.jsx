@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -10,13 +9,6 @@ function MiningProcess({ plans, currentPlan, dispatchMiningEntry }) {
   const [ amount, setAmount ] = useState();
   const [ lastEntry, setLastEntry ] = useState(false);
   const history = useHistory();
-
-
-  useEffect(()=>{
-    if (plans.length == 0){
-      history.push('/results');
-    }
-  })
 
   const handleChange = (e) => {
     if (e.target.value){
@@ -38,8 +30,9 @@ function MiningProcess({ plans, currentPlan, dispatchMiningEntry }) {
 
   const addMiningEntry = (e) =>{
     dispatchMiningEntry(amount, lastEntry)
+    if (lastEntry === true && plans.length === 1)
+      history.push('/results')
     setLastEntry(false)
-    console.log(plans.length)
     return;
   }
 
